@@ -1,0 +1,49 @@
+@import 'konstrukt'
+@import 'interface'
+  
+*
+  box-sizing: border-box
+img
+  max-width: 100%
+button, select, option, input, textarea
+  outline: none
+nav, header, main
+  transition: .5s
+h1, h2, h3
+  margin-top: 0
+select
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
+  background: url("data:image/svg+xmlutf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat
+  background-size: 12px
+  background-position: calc(100% - 10px) center
+  background-repeat: no-repeat
+  background-color: #000     
+.container
+  width: 1200px
+  margin: auto
+  transition: .3s
+.konstrukt-selected
+  position: relative
+
+.linkBlock 
+  margin-top: 20px
+.linkIn
+  display: flex
+  color: #ffffff !important
+  font-size: 14px
+  font-family: 'Roboto',Arial,sans-serif
+  line-height: 1.55
+  font-weight: 600
+  border-width: 1px
+  border-radius: 10px
+  background-color: #0b4dbd
+  background-position: center center
+  border-color: #000000
+  border-style: solid
+  width: 250px
+  height: 60px
+  justify-content: center
+  align-items: center
+  text-transform: uppercase

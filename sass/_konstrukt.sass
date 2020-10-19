@@ -1,0 +1,382 @@
+.konstrukt
+  padding-top: 40px
+  padding-bottom: 40px
+  position: relative
+  width: auto
+  &-block
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    padding-bottom: 20px
+    transition: .3s
+  &-selected
+    display: flex
+    flex-direction: column
+    margin-bottom: 30px
+    align-items: center
+  &-left
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    width: 50%
+    select
+      margin-top: 8px
+      margin-bottom: 8px
+      max-width: 220px 
+      min-width: 220px
+      padding: 4px 0 4px 5px
+      background-color: #000
+      color: #fff
+      font-weight: 700
+      font-size: 20px
+  &-right
+    width: 50%
+  &-rezult
+    position: relative
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    justify-content: center
+    transition: .3s
+  &__image
+    transition: .3s
+    position: absolute
+    top: 0
+    left: 50%
+    overflow: hidden
+    border-radius: 25px
+  &-form
+    display: flex
+    flex-direction: column
+    padding-left: 5px
+    position: relative
+  &-gallery
+    width: 100%
+    overflow: hidden
+    position: relative
+  &-left__block
+    position: absolute
+    left: -2px
+    top: 0
+    width: 50px
+    height: 100%
+    background-color: #fff
+    z-index: 9
+  &-right__block
+    position: absolute
+    right: -2px
+    top: 0
+    width: 50px
+    height: 100%
+    background-color: #fff
+    z-index: 9    
+  &__answer
+    padding-left: 10px
+    font-weight: 300   
+    font-family: sans-serif
+  &__title, &__subtitle
+    font-family: sans-serif
+    text-align: center
+    font-weight: 700
+    padding: 0
+    margin: 0
+    margin-bottom: 15px
+  &__subtitle
+    margin-bottom: 5px    
+  &-inputs
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    margin-top: 10px
+    margin-bottom: 10px
+  &__input
+    margin-top: 4px
+    max-width: 180px 
+    min-width: 180px
+    padding: 2px 0 2px 5px
+    color: #000
+    border: 1px solid #000
+    font-size: 16px
+  &__text
+    display: flex
+    flex-direction: column
+    justify-content: space-between 
+    align-items: flex-start
+    margin-right: 15px
+    margin-left: 15px
+  &__button
+    transition: .3s
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #000
+    font-size: 16px
+    font-family: sans-serif
+    color: #fff
+    max-width: 180px 
+    min-width: 180px
+    height: 35px
+    border-radius: 5px
+    font-weight: 700
+  &-sizes
+    display: flex
+    flex-direction: row
+    justify-content: center
+    position: absolute
+    right: -55px
+    top: 40%
+    transform: rotate(-90deg)
+    border-radius: 12px
+  &__size
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 22px
+    background-color: #000
+    color: #fff
+    width: 30px
+    height: 30px
+    margin-left: 5px
+    margin-right: 5px
+    transition: .3s
+  &__stitle
+    padding: 0
+    margin: 0
+    font-family: sans-serif
+    font-weight: 700
+    font-size: 18px
+  &__coloTitle
+    font-family: sans-serif
+    font-size: 16px
+    margin-bottom: 20px                   
+
+label
+  display: flex
+  flex-direction: row
+.noSearch
+  margin-top: 15px  
+.size__image
+  width: 260px
+  height: 520px
+  display: block    
+.flip
+  transform: scale(-1, 1)
+.konstrukt__radio
+  opacity: 0
+  position: absolute
+  z-index: -2
+input[type="checkbox"] + span.konstrukt__lable
+  position: relative
+  width: 20px
+  height: 20px
+  margin-left: 30px
+  margin-bottom: 10px
+  display: block
+  border: 1px solid #5f5f5f
+input[type="checkbox"]:checked  + span.konstrukt__lable
+  &::after
+    content: ''
+    position: absolute
+    display: block
+    bottom: -7px
+    left: 35px
+    background-color: #000
+    width: 35px
+    height: 2px
+    
+.slider
+  img
+    width: 70% !important
+    display: block
+    margin: auto
+  &__item
+    outline: none
+  &-left, &-right
+    width: 35px
+    height: 35px
+    display: block
+    background-color: #fff
+    border-radius: 50%
+    position: absolute
+    top: 40%
+    transition: .3s
+    &::after
+      content: ''
+      display: block
+      position: absolute
+      left: 7px
+      top: 37%
+      background-color: #000
+      width: 16px
+      height: 2px
+      transform: rotate(-30deg)
+    &::before
+      content: ''
+      display: block
+      position: absolute
+      top: 60%
+      left: 7px
+      background-color: #000
+      width: 16px
+      height: 2px
+      transform: rotate(30deg)
+    &:active
+      background-color: darken(#fff, 40%)
+  &-left
+    left: 118px    
+  &-right
+    right: 114px
+    &::after
+      left: 11px
+      top: 60%            
+    &::before
+      left: 11px
+      top: 37%                    
+.slick-slide
+  transition: .3s
+  transform: scale(.8)
+  -webkit-filter: blur(4px)
+  -moz-filter: blur(4px)
+  -o-filter: blur(4px)
+  -ms-filter: blur(4px)
+  filter: blur(4px)
+.slick-center
+  -webkit-filter: blur(0px)
+  -moz-filter: blur(0px)
+  -o-filter: blur(0px)
+  -ms-filter: blur(0px)
+  filter: blur(0px)
+  transition: .3s
+  transform: scale(1) !important    
+.ui-widget-content
+  background: none
+  color: none
+  border: none
+#car:active
+  border: 1px solid #43a2e0
+  border-radius: 8px
+#block_color_car
+  margin-top: 10px
+
+
+@media (min-width: 992px)
+  .konstrukt
+    &__button, &__size
+      &:hover
+        background-color: lighten(#000, 20%)
+        cursor: pointer
+    #car
+      &:hover
+        cursor: pointer
+  .slider
+    &-left:hover, &-right:hover
+      cursor: pointer            
+@media (max-width: 1200px)
+  .konstrukt
+    &-block
+      padding-bottom: 55px
+    &__image
+      left: 50%
+      top: -25px
+  .size__image
+    height: 490px    
+  .slider
+    &-left
+      left: 98px    
+    &-right
+      right: 94px           
+@media (max-width: 992px)
+  .konstrukt
+    &-right
+      width: 50%
+      border: none
+      padding-top: 30px
+    &__image
+      top: 0
+      left: 10%
+    &-left
+      width: 50%
+    &-rezult
+      height: 550px
+      justify-content: flex-end
+      align-items: flex-start
+      padding-left: 23px
+    &-form
+      padding: 0
+      transform: scale(0.9)
+    &-sizes
+      width: 75%  
+  #range
+    margin: 0
+    padding: 0
+    width: 100%
+  .size__image
+    height: 320px
+    width: 160px  
+  .slider
+    &-left
+      left: 80px    
+    &-right
+      right: 80px           
+@media (max-width: 768px)
+  .size__image
+      width: 200px
+      height: 400px
+  .slider
+    img
+      width: 80% !important
+    &-left
+      left: 90px    
+    &-right
+      right: 86px    
+  .konstrukt
+    &-block
+      flex-direction: column
+      align-items: center
+    &-rezult
+      height: 400px
+      justify-content: flex-start
+      align-items: flex-start
+      padding: 0
+    &-left, &-right
+      width: 100%  
+    &-right
+      width: 100%  
+    &__image
+      left: 50%
+    &-block
+      padding-bottom: 0
+@media (max-width: 567px)
+  .konstrukt
+  .size__image
+    width: 170px
+    height: 340px
+@media (max-width: 420px)
+  .konstrukt
+    &-rezult
+      height: 550px
+      justify-content: flex-end
+      align-items: center
+    &-inputs
+      flex-direction: column
+      align-items: flex-start
+    &__text
+      margin: 0
+      margin-bottom: 10px
+    &__title
+      font-size: 16px
+    &__image
+      left: 24%      
+  input[type="checkbox"] + span.konstrukt__lable
+    margin-left: 0
+  .slider
+    img
+      width: 90% !important
+    &-left
+      left: 70px    
+    &-right
+      right: 66px                                                         

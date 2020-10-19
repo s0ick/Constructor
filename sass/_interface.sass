@@ -1,0 +1,196 @@
+*
+  box-sizing: border-box
+img
+  max-width: 100%
+button, select, option, input, textarea
+  outline: none
+nav, header, main
+  transition: .5s
+h1, h2, h3
+  margin-top: 0
+select
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+  background-size: 12px
+  background-position: calc(100% - 10px) center
+  background-repeat: no-repeat
+  background-color: #000     
+.container
+  width: 1200px
+  margin: auto
+  transition: .3s
+.display
+  display: none !important
+.opacity
+  opacity: 0 !important
+#description
+  max-width: 220px
+  padding-left: 0
+  margin-top: 15px
+  font-size: 14px
+#title
+  margin-top: 15px    
+
+#loading 
+  display: block
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 100
+  width: 100%
+  height: 100%
+  background-color: rgba(192, 192, 192, 0.5)
+  background-image: url("http://i.stack.imgur.com/MnyxU.gif")
+  background-repeat: no-repeat
+  background-position: center
+a
+  text-decoration: none
+  cursor: default
+input[type='range']::-webkit-slider-thumb 
+  padding: 10px
+input[type='range']::-moz-range-thumb 
+  padding: 10px
+input[type='range']::-ms-thumb 
+  padding: 10px
+.after, .before
+  position: relative
+  &::after
+    content: 'Машину можно двигать'
+    display: flex
+    position: absolute
+    justify-content: center
+    width: 100%
+    padding-top: 10px
+    padding-bottom: 10px
+    background-color: rgba(#fff, 1)
+    color: #000
+    bottom: 155px
+    left: 0  
+    font-family: sans-serif
+    font-weight: 700
+    font-size: 16px
+    text-align: center
+    border-radius: 10px
+    z-index: 4
+  &::before
+    content: ''
+    display: block
+    background-color: rgba(#fff, 1)
+    border: 2px solid #000
+    position: absolute
+    bottom: 143px
+    left: 45%
+    width: 20px
+    height: 20px
+    z-index: 3
+    transform: rotate(45deg)
+.before
+  &::after
+    content: 'Размер тоже можно менять'
+    left: 60px
+    top: -30%
+    font-size: 12px
+    bottom: 33px
+    border: 2px solid #000
+    transform: rotate(90deg)
+    width: 200px
+    height: 15px
+    z-index: 9999
+  &::before
+    bottom: -2px
+    left: 131px 
+
+#range::-webkit-slider-thumb
+  -webkit-appearance: none
+  width: 15px
+  height: 15px
+  border-radius: 50%
+#range::-moz-slider-thumb
+  -webkit-appearance: none
+  width: 15px
+  height: 15px
+  border-radius: 50%  
+
+.konstrukt-selected
+  position: relative
+.popup
+  position: absolute
+  display: none
+  left: 245px
+  top: 29px
+  border: 2px solid #000
+  background-color: #cacaca
+  z-index: 9999
+  border-radius: 12px
+  padding: 8px
+  width: 200px
+  &__title
+    font-family: sans-serif
+    font-size: 16px
+  &__text
+    font-family: sans-serif
+    font-size: 15px
+  &__close
+    position: absolute
+    right: -5px
+    top: -5px
+    display: block
+    background-color: #000
+    color: #fff
+    padding: 5px 7px
+    font-size: 14px
+    border-radius: 50% 
+
+.strong-text
+  font-weight: 500       
+// .modal
+//   display: none
+//   position: fixed
+//   background-color: rgba(0,0,0,.8)
+//   top: 0px
+//   left: 0px
+//   width: 100%
+//   height: 100%
+//   z-index: 10000
+//   overflow-y: auto
+//   cursor: pointer
+//   justify-content: center
+//   align-items: center
+//   &-dialog
+//     background-color: #fff
+//     padding: 40px 40px 50px
+//     box-sizing: border-box
+//     border-radius: 5px
+//     text-align: center
+//     position: relative
+//     cursor: default
+//     max-width: 300px
+//   &__text
+//     font-family: sans-serif  
+
+@media (min-width: 992px)
+  a, .button
+    cursor: pointer 
+@media (max-width: 1200px)
+  .container
+    width: 960px
+@media (max-width: 992px)
+  .container
+    width: 750px
+  .after
+    &::after
+      font-size: 14px   
+@media (max-width: 768px) 
+  .container
+    max-width: 550px 
+@media (max-width: 567px)
+  .container
+    max-width: 400px
+  .popup
+    left: 23px
+    top: 180px  
+@media (max-width: 420px)
+  .container
+    max-width: 320px

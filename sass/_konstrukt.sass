@@ -1,5 +1,5 @@
 .konstrukt
-  padding-top: 40px
+  padding-top: 20px
   padding-bottom: 40px
   position: relative
   width: auto
@@ -9,6 +9,22 @@
     justify-content: space-between
     padding-bottom: 20px
     transition: .3s
+  &-buttons
+    padding-bottom: 10px
+    margin-bottom: 20px
+    display: flex
+    justify-content: center
+    align-items: center
+  &__mode
+    display: block
+    width: 300px
+    height: 55px
+    background-color: #fff
+    background-image: url('https://justbecome.pro/static/oqqo/constructor/button_case.png')
+    background-size: contain
+    background-repeat: no-repeat
+    cursor: pointer
+    border: none 
   &-selected
     display: flex
     flex-direction: column
@@ -41,13 +57,17 @@
     align-items: flex-start
     justify-content: center
     transition: .3s
-  &__image
+  &__image, &-cover__image
     transition: .3s
     position: absolute
     top: 0
-    left: 50%
+    left: 40%
     overflow: hidden
-    border-radius: 25px
+    border-radius: 30px
+  &-cover__image
+    border-radius: 0
+    border-bottom-right-radius: 10px
+    border-top-right-radius: 10px   
   &-form
     display: flex
     flex-direction: column
@@ -160,9 +180,11 @@ label
 .noSearch
   margin-top: 15px  
 .size__image
-  width: 260px
-  height: 520px
-  display: block    
+  width: 300px
+  height: 600px
+  display: block
+.size-cover__image
+  display: block      
 .flip
   transform: scale(-1, 1)
 .konstrukt__radio
@@ -279,9 +301,11 @@ input[type="checkbox"]:checked  + span.konstrukt__lable
   .konstrukt
     &-block
       padding-bottom: 55px
-    &__image
+    &__image, &-cover__image
       left: 50%
       top: -25px
+    &-cover__image
+      top: 60px  
   .size__image
     height: 490px    
   .slider
@@ -295,16 +319,16 @@ input[type="checkbox"]:checked  + span.konstrukt__lable
       width: 50%
       border: none
       padding-top: 30px
-    &__image
+    &__image, &-cover__image
       top: 0
       left: 10%
     &-left
       width: 50%
     &-rezult
-      height: 550px
+      height: 715px
       justify-content: flex-end
       align-items: flex-start
-      padding-left: 23px
+      padding-left: 66px
     &-form
       padding: 0
       transform: scale(0.9)
@@ -356,9 +380,12 @@ input[type="checkbox"]:checked  + span.konstrukt__lable
     width: 170px
     height: 340px
 @media (max-width: 420px)
+  .size-cover__image
+    width: 244px
+    height: 350px
   .konstrukt
     &-rezult
-      height: 550px
+      height: 600px
       justify-content: flex-end
       align-items: center
     &-inputs
@@ -369,8 +396,10 @@ input[type="checkbox"]:checked  + span.konstrukt__lable
       margin-bottom: 10px
     &__title
       font-size: 16px
-    &__image
-      left: 24%      
+    &__image, &-cover__image
+      left: 24%
+    &-cover__image
+      left: 14%
   input[type="checkbox"] + span.konstrukt__lable
     margin-left: 0
   .slider

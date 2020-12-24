@@ -5,10 +5,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/second.min.css">
+  <link rel="stylesheet" href="./css/mainProduct.min.css">
   <title>Second</title>
 </head>
 
 <body>
+  <section class="product" id="product">
+    <div class="container">
+      <!-- <h3 class="product__low_title">полная индивидуализация вашими руками</h3> 
+      <h2 class="product__title">выберете комплектацию</h2>    -->
+      <div class="product-block">
+        <a href="#" class="product__card padding">
+          <img class="product__image" id="caseImg">
+          <div class="product-block__text">
+            <h3 class="product__subtitle">3D чехол</h3>
+            <span class="product__desc">• многослойное покрытие <br>• глянцевая печать</span>
+            <span class="product__price">3000 ₽</span>
+          </div>
+          <span class="product__button">
+            создать дизайн в конструкторе
+            <span class="product__ellipse"></span>
+          </span>
+        </a>
+        <a href="#" class="product__card padding">
+          <img class="product__image" id="coverImg">
+          <div class="product-block__text">
+            <h3 class="product__subtitle">Портмоне для автомодокументов</h3>
+            <span class="product__desc">• натуральная кожа</span>
+            <span class="product__price">3000 ₽</span>
+          </div>
+         <span class="product__button">
+          создать дизайн в конструкторе
+          <span class="product__ellipse"></span>
+        </span>
+        </a>
+        <a href="#" class="product__card padding">
+          <img class="product__image" id="caseCoverImg">
+          <div class="product-block__text">
+            <h3 class="product__subtitle">комплект</h3>
+            <span class="product__desc">• чехол с 3d печатью<br>• обложка для автомодокументов</span>
+            <span class="product__price">6000 ₽ <span class="product__after">5000 ₽</span></span>
+          </div>
+          <span class="product__button">
+            создать дизайн в конструкторе
+            <span class="product__ellipse"></span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="konstrukt">
     <div class="container">
       <div class="konstrukt-block">
@@ -110,6 +156,21 @@
               <input type="checkbox" name="noSearch" id="noSearch">
               <span style="text-transform: uppercase;" class="konstrukt__answer">Моей машины нет</span>
             </label>
+            <div class="konstrukt-inputs">
+              <div class="konstrukt__text display" id="block_model_car">
+                <span class="konstrukt__subtitle">Марка и модель</span>
+                <input class="konstrukt__input" placeholder="Например, Volvo XC90" type="text" name="model_car"
+                  id="model_car">
+                <span class="konstrukt__answer" id="description">
+                  После оформления заказа, мы пришлем вам макет с вашей машиной в WhatsApp
+                </span>
+              </div>
+              <div class="konstrukt__text display" id="block_color_car">
+                <span class="konstrukt__subtitle">Цвет</span>
+                <input class="konstrukt__input" placeholder="Например, зеленый" type="text" name="color_car"
+                  id="color_car">
+              </div>
+            </div>
 
             <div class="linkBlock">
               <a class="linkIn" href="#" id="linkIn">Перейти в конструктор</a>

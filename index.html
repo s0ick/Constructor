@@ -4,16 +4,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- disable caching on proxy servers -->
+  <meta http-equiv="pragma" content="no-cache">
+  <!-- set expiration date to "immediately" -->
+  <meta http-equiv="expires" content="0">
+  <!-- instruct the browser to not cache the webpage -->
+  <meta http-equiv="cache-control" content="no-cache" />
   <link rel="stylesheet" href="./css/style.min.css">
   <title>Test</title>
 </head>
 
 <body>
+  <section class="product" id="product">
+    <div class="container">
+      <!-- <h3 class="product__low_title">полная индивидуализация вашими руками</h3> 
+      <h2 class="product__title">выберете комплектацию</h2>    -->
+      <div class="product-block">
+        <label class="product__card">
+          <input type="radio" class="product__radio" name="case" id="case">
+          <span class="product__radioImg"></span>
+          <img class="product__image" id="caseImg">
+          <div class="product-block__text">
+            <h3 class="product__subtitle">3D чехол</h3>
+            <span class="product__desc">• многослойное покрытие <br>• глянцевая печать</span>
+            <span class="product__price">3000 ₽</span>
+          </div>
+        </label>
+        <label class="product__card">
+          <input type="radio" class="product__radio" name="cover" id="cover">
+          <span class="product__radioImg"></span>
+          <img class="product__image" id="coverImg">
+         <div class="product-block__text">
+          <h3 class="product__subtitle">Портмоне для автомодокументов</h3>
+          <span class="product__desc">• натуральная кожа</span>
+          <span class="product__price">3000 ₽</span>
+         </div>
+        </label>
+        <label class="product__card">
+          <input type="radio" class="product__radio" name="caseCover" id="caseCover">
+          <span class="product__radioImg fix"></span>
+          <img class="product__image" id="caseCoverImg">
+          <div class="product-block__text">
+            <h3 class="product__subtitle">комплект</h3>
+            <span class="product__desc">• чехол с 3d печатью<br>• обложка для автомодокументов</span>
+            <span class="product__price">6000 ₽ <span class="product__after">5000 ₽</span></span>
+          </div>
+        </label>
+      </div>
+    </div>
+  </section>
+
   <section class="konstrukt">
     <div class="container">
       <div class="konstrukt-block">
         <div class="konstrukt-left">
 
+          <div class="konstrukt-buttons">
+            <button id="button-case" class="konstrukt__mode"></button>
+          </div>
 
           <div class="konstrukt-selected">
             <p class="konstrukt__stitle">Выберите марку</p>
@@ -117,7 +165,7 @@
             </div>
 
             <label class="noSearch">
-              <input type="checkbox" name="noSearch" id="noSearh">
+              <input type="checkbox" name="noSearch" id="noSearch">
               <span class="konstrukt__answer">Моей машины нет</span>
             </label>
             <div class="konstrukt-inputs">
@@ -136,16 +184,21 @@
               </div>
             </div>
           </div>
+          
           <h1 class="konstrukt__title" style="text-align: center;">Выберите шаблон</h1>
           <div class="konstrukt-gallery">
-            <div class="konstrukt-left__block"></div>
-            <div class="konstrukt-right__block"></div>
+            <div class="konstrukt-left__block">
+              <span class="slider-left"></span>
+            </div>
+            <div class="konstrukt-right__block">
+              <span class="slider-right"></span>
+            </div>
             <div class="slider"></div>
           </div>
         </div>
         <div class="konstrukt-right">
           <div class="konstrukt-rezult">
-            <div class="konstrukt__image">
+            <div class="konstrukt__image" id="konstrukt__image">
             </div>
             <form action="#" class="display konstrukt-form" id="radio-form">
               <h3 class="konstrukt__coloTitle">Цвет и размер машины</h3>
@@ -155,17 +208,17 @@
               <label>
                 <input type="checkbox" name="black" id="check1" class="konstrukt__radio">
                 <span style="background-color: #000" class="konstrukt__lable"></span>
-                <span class="konstrukt__answer">Черная</span>
+                <span class="konstrukt__answer">Черный</span>
               </label>
               <label>
                 <input type="checkbox" name="white" id="check2" class="konstrukt__radio">
                 <span style="background-color: #fff" class="konstrukt__lable"></span>
-                <span class="konstrukt__answer">Белая</span>
+                <span class="konstrukt__answer">Белый</span>
               </label>
               <label>
                 <input type="checkbox" name="grey" id="check4" class="konstrukt__radio">
                 <span style="background-color: rgb(121, 121, 121)" class="konstrukt__lable"></span>
-                <span class="konstrukt__answer">Серый</span>
+                <span class="konstrukt__answer">Серебристый</span>
               </label>
               <label>
                 <input type="checkbox" name="other" id="check3" class="konstrukt__radio">
@@ -174,26 +227,55 @@
                   class="konstrukt__lable"></span>
                 <span class="konstrukt__answer">Другой цвет</span>
               </label>
-              <label class="noSearch display" id="block_vertical">
-                <span class="konstrukt__button" name="nvertical" id="vertical">Повернуть машину</span>
+              <div class="konstrukt__text display" id="block_color_car_2" style="margin: 0 !important;">
+                <span class="konstrukt__subtitle">Цвет</span>
+                <input class="konstrukt__input" placeholder="Например, красный" type="text" name="color_car_2"
+                  id="color_car_2">
+              </div>
+              <label class="noSearch" id="block_vertical">
+                <span class="konstrukt__button" name="vertical" id="vertical">Повернуть машину</span>
               </label>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <div id="loading"></div>
+    <div id="loading">
+      <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
   </section>
+
+  <div class="modal" id="modal">
+    <div class="modal-back"></div>
+    <div class="modal-window">
+      <div class="modal-block">
+        <span id="modalClose" class="modal__close">&#9587;</span>
+        <h3 class="modal__title">Для создания дизайна обложки выберете товар с обложкой</h3>
+        <span id="ok" class="modal__button">ОК</span>
+      </div>
+    </div>
+  </div>
 
   <section>
     <div class="container">
-      <input type="text" name="field_mark">
-      <input type="text" name="field_model">
-      <input type="text" name="field_color">
-      <input type="text" name="field_template">
-      <input type="text" name="field_is_mirror">
-      <input type="text" name="field_scale">
-      <input type="text" name="field_position">
+      <input type="text" name="product">
+      <input type="text" name="case_mark">
+      <input type="text" name="case_model">
+      <input type="text" name="case_color">
+      <input type="text" name="case_template">
+      <input type="text" name="case_is_mirror">
+      <input type="text" name="case_scale">
+      <input type="text" name="case_position">
+  </section>
+  <section style="padding-top: 30px;">
+    <div class="container">
+      <input type="text" name="obl_mark">
+      <input type="text" name="obl_model">
+      <input type="text" name="obl_color">
+      <input type="text" name="obl_template">
+      <input type="text" name="obl_is_mirror">
+      <input type="text" name="obl_scale">
+      <input type="text" name="obl_position">
   </section>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"

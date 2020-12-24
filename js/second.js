@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const mark = document.getElementById('mark'),
     model = document.getElementById('model'),
     link = document.getElementById('linkIn'),
-    check = document.getElementById('noSearch');
+    check = document.getElementById('noSearch'),
+    urlParam = new URLSearchParams(window.location.search);
 
   const optionsList = model.querySelectorAll('option');
   let classOptions = [];
@@ -12,13 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const generateHref = (noSearch) => {
-    let baseURL = 'https://oqqo-studio.ru/constructor';
+    let baseURL = 'http://127.0.0.1:5500/index.html', //https://oqqo-studio.ru/constructor
+        params = window.location.search.replace( '?', '');
     if (noSearch) {
-      link.href = `${baseURL}?noMyCar=true`;
+      params = params.length == 0 ? '' : `&${params}`;
+      link.href = `${baseURL}?noMyCar=true${params}`;
     } else if (mark.value && model.value) {
+      params = params.length == 0 ? '' : `&${params}`;
       let value = model.value.replace(`${mark.value}_`, '');
-      link.href = `${baseURL}?mark=${mark.value}&model=${value}`;
-    } else link.href = '#';
+      link.href = `${baseURL}?mark=${mark.value}&model=${value}${params}`;
+    } else {
+      params = params.length == 0 ? '' : `?${params}`;
+      link.href = `${params}`;
+    }
   };
   generateHref();
 
@@ -45,15 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
       getOptionForModel();
       generateHref();
     });
+    model.addEventListener('change', () => {
+      generateHref();
+    });
     mark.value = 'BMW';
     let event = new Event('change');
     mark.dispatchEvent(event);
   };
   changeMark();
 
-  model.addEventListener('change', () => {
-    generateHref();
-  });
 
   const noSearchMyCar = () => {
     check.addEventListener('change', () => {
@@ -69,5 +76,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
   noSearchMyCar();
+
+  const searchGift = () => {
+    let product = document.getElementById('product'),
+        links = product.querySelectorAll('.product__card'),
+        images = product.querySelectorAll('.product__image'),
+        subtitle = product.querySelectorAll('.product__subtitle'),
+        price = product.querySelectorAll('.product__price'),
+        desc = product.querySelectorAll('.product__desc'),
+        parameters = window.location.search.replace('?', '');    
+    if(urlParam.get('utm_gift')) {
+      images[0].src = 'https://justbecome.pro/static/oqqo/img/4.png';
+      images[1].src = 'https://justbecome.pro/static/oqqo/img/2.png';
+      images[2].src = 'https://justbecome.pro/static/oqqo/img/5.png';
+
+      subtitle[0].textContent = 'Подарочный чехол';
+      subtitle[1].textContent = 'Подарочная обложка';
+      subtitle[2].textContent = 'Подарочный комплект';
+
+      desc[0].innerHTML = '• 3D Чехол<br>• Магнитный держатель<br>• Подарочная коробка';
+      desc[1].innerHTML = '• Обложка для автодокументов<br>• Подарочная коробка';
+      desc[2].innerHTML = '• 3D-Чехол<br>• Обложка для автодокументов<br>• Магнитный держатель<br>• Подарочная коробка';
+
+      price[0].textContent = '4000 ₽';
+      price[1].textContent = '3500 ₽';
+      price[2].innerHTML = '7000 ₽ <span class="product__after">6000 ₽</span>';
+    } else {
+      for(let i = 0; i < 3; i++) {
+        images[i].src = `https://justbecome.pro/static/oqqo/img/${i + 1}.png`;
+      }
+    }
+    for(let i = 0; i < 3; i++) {
+      links[i].href = 'https://oqqo-studio.ru/ctest' + `?utm_tovar=${i + 1}&` + parameters;
+    }
+  };
+  searchGift();
 
 });

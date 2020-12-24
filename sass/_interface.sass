@@ -34,7 +34,7 @@ select
   margin-top: 15px    
 
 #loading 
-  display: block
+  display: flex
   position: absolute
   top: 0
   left: 0
@@ -42,9 +42,8 @@ select
   width: 100%
   height: 100%
   background-color: rgba(192, 192, 192, 0.5)
-  background-image: url("http://i.stack.imgur.com/MnyxU.gif")
-  background-repeat: no-repeat
-  background-position: center
+  justify-content: center
+  align-items: center
 a
   text-decoration: none
   cursor: default
@@ -144,31 +143,9 @@ input[type='range']::-ms-thumb
     border-radius: 50% 
 
 .strong-text
-  font-weight: 500       
-// .modal
-//   display: none
-//   position: fixed
-//   background-color: rgba(0,0,0,.8)
-//   top: 0px
-//   left: 0px
-//   width: 100%
-//   height: 100%
-//   z-index: 10000
-//   overflow-y: auto
-//   cursor: pointer
-//   justify-content: center
-//   align-items: center
-//   &-dialog
-//     background-color: #fff
-//     padding: 40px 40px 50px
-//     box-sizing: border-box
-//     border-radius: 5px
-//     text-align: center
-//     position: relative
-//     cursor: default
-//     max-width: 300px
-//   &__text
-//     font-family: sans-serif  
+  font-weight: 500
+.active-button
+  background-image: url('https://justbecome.pro/static/oqqo/constructor/button_oblojka.png') !important        
 
 @media (min-width: 992px)
   a, .button

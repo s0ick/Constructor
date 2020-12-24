@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const generateHref = (noSearch) => {
-    let baseURL = 'http://127.0.0.1:5500/index.html', //https://oqqo-studio.ru/constructor
+    let baseURL = 'https://oqqo-studio.ru/constructor', //http://127.0.0.1:5500/index.html
         params = window.location.search.replace( '?', '');
     if (noSearch) {
       params = params.length == 0 ? '' : `&${params}`;
@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   changeMark();
 
-
   const noSearchMyCar = () => {
     check.addEventListener('change', () => {
       if (check.checked) {
@@ -77,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   noSearchMyCar();
 
+  // Changing items when the label is gift
   const searchGift = () => {
     let product = document.getElementById('product'),
         links = product.querySelectorAll('.product__card'),
@@ -111,5 +111,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   searchGift();
-
 });

@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         leftArrow = document.querySelector('.slider-left'),
         rightArrow = document.querySelector('.slider-right'),
 
-        // Update script
         fieldTovar = document.getElementsByName('product'),
         fieldCoverMark = document.getElementsByName('obl_mark'),
         fieldCoverModel = document.getElementsByName('obl_model'),
@@ -50,35 +49,38 @@ document.addEventListener('DOMContentLoaded', () => {
         
         modal = document.getElementById('modal');
 
-
+  /* 
+    Functions related to the amount are unlocked in the production version
+  */
+   
   let imgModel = document.createElement('img'),
       cloneImgModel = document.createElement('img'),
-      draggie = {},
-      sum = 0,
-      count = 0,
-      countStart = 0,
-      countStartCover = 0,
-      countChangeButtons = 0,
-      settingsCase = {},
-      settingsCover = {};
+      draggie = {}, // Object for event 'DragAndDrop' settings
+      sum = 0, // Order price
+      count = 0, // Counter for mirror
+      countStart = 0, // Counter for counting starts case
+      countStartCover = 0, // Counter for counting starts cover
+      countChangeButtons = 0, // Counter for change mode 
+      settingsCase = {}, // For storing order data
+      settingsCover = {}; // For storing order data
              
             
   class Constructor {
     constructor(mode = 'case') {
-      this.param = false;
-      this.classOptions = [];
-      this.triggerModel = 0;
-      this.triggerRange = 0;
+      this.param = false; // Fixes the presence of parameters. A certain counter
+      this.classOptions = []; // Array with all models
+      this.triggerModel = 0; // Fixes interaction with the model picture
+      this.triggerRange = 0; // Fixes resizing
 
-      this.carMark = '';
-      this.carModel = '';
-      this.flag = false;
-      this.NoMyCar = false;
-      this.carChange = '';
+      this.carMark = ''; // Temporarily stores the selected brand
+      this.carModel = ''; // Temporarily stores the selected model
+      this.flag = false; // Mode for launcher function
+      this.NoMyCar = false; // If there is no suitable brand or model
 
-      this.mode = mode;
+      this.mode = mode; // Selected constructor mode
     }
 
+    // Start template 
     start() {
       this.fillInClassOptions();
       this.searchParam();
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Return default values
     clearConstructor() {
       range.value = 0;
 
@@ -131,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modelCar.value = '';  
     }
 
+    // Start/restart constructor
     launcher(carMark, carModel, flag, NoMyCar = false) {
       loading.style.display = 'flex';
   
@@ -168,10 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (flag) setTimeout(changeMark, 1);
     }
 
+    // Getting everyone options form the model list
     fillInClassOptions() {
       options.forEach(elem => this.classOptions.push(elem.value));
     }
 
+    // Search URL parameters 
     searchParam() {
       if(urlParam.get('mark') && urlParam.get('model')) {
         this.launcher(urlParam.get('mark'), urlParam.get('model'), !0);
@@ -215,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Mirror reflection 
     flipVertical() {
       count = 0;
       divVertical.classList.remove('display');
@@ -243,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Adding to the list of models in accordance with the brand
     setOption() {
       model.textContent = ``;
       const addOption = (val1, val2) => {
@@ -261,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Loading a model picture
     getCar(color, way) {
       if (color === 'null') {
         divColor2.classList.remove('display');
@@ -296,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.editingSize();
     }
 
+    // Case template selection
     clickSlider() {
       const slides = document.querySelectorAll('.slider__item');
       
@@ -351,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Color selection
     clickColor() {
       let check;
       let event = new Event('input');
@@ -386,6 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Creates slides and adds them to the slider
     createNewImg(target, count) {
       count++;
       let way = '';
@@ -420,7 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     
         const changeModel = () => {
-          debugger;
           model.value = !!this.carMark ? `${this.carMark}_${this.carModel}` : this.carModel;
           if(model.value === '') model.value = 'BMW_3_series_VII_(G2x)_2018-2020';
           let event = new Event('change');
@@ -458,6 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Launches slick slider
     startSlider(target) {
       $('.slider').slick({
         centerMode: true,
@@ -473,6 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.createNewImg(target, 0);
     }
 
+    // -- Event listener in constructor --
     noSearchListener() {
       if (noSearch.checked) {
         if(countStart === 0) popup.style.display = 'block';
@@ -657,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       let way = null;
-      way = `https://justbecome.pro/static/oqqo/constructor/${mark.value}/Cars/${this.carChange}/`;
+      way = `https://justbecome.pro/static/oqqo/constructor/${mark.value}/Cars/${this.carModel}/`;
 
       if (target.name === 'black') this.getCar('black', way);
       if (target.name === 'white') this.getCar('white', way);
@@ -711,7 +724,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let markText = options[i].value.substring(0, mark.value.length); 
         if (markText === mark.value) {
           if(this.param) this.param = false;
-          debugger;
           if(countStartCover > 1) {
             if((countStart > 1 && this.mode === 'case') && temp === markText) {
               this.launcher('', `${mark.value}_${settingsCase.model}`, false);
@@ -722,9 +734,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           } else if(countStartCover === 1) {
             this.launcher('', `${mark.value}_${settingsCase.model}`, false);
-            countStartCover++;
+            countStartCover++; 
           } else if(countStart === 1 && (urlParam.get('mark'))) { 
-            this.launcher(urlParam.get('mark'), urlParam.get('model'), !0);
+            this.launcher(urlParam.get('mark'), urlParam.get('model'), false);
+            countStart--;
           } else if(countStart === 1) {
             this.launcher('', options[i].value, false);
             countStart--;
@@ -738,7 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let target = event.target,
           text =  target.value.slice(mark.value.length + 1);
 
-      this.carChange = text;
+      this.carModel = text;
 
       const car = document.getElementById('car');
       if (car) image.removeChild(car);
@@ -813,6 +826,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // -----------------------------------
+    // Hangs up the DragAndDrop event on the model's picture
     addDragNDrop() {
       const car = document.getElementById('car');
       draggie = new Draggabilly(car, { containment: 'body' });
@@ -874,12 +889,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    // Resizing the model picture
     editingSize() {
       if(this.mode === 'case') fieldScale[0].value = '125%';
       else fieldCoverScale[0].value = '125%';
     }
   }
 
+
+  // Changing items when the label is gift
   const searchGift = () => {
     let product = document.getElementById('product'),
         images = product.querySelectorAll('.product__image'),
@@ -910,10 +928,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   searchGift();
 
+  // Creating class objects
   let Case = new Constructor('case');
   let Cover = new Constructor('cover');
 
-
+  // Binding event listeners to class objects
   let markListener = Case.markListener.bind(Case),
       modelListener = Case.modelListener.bind(Case),
       formListener = Case.formListener.bind(Case),
@@ -942,7 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modelCarListenerCover = Cover.modelCarListener.bind(Cover),
       rangeListenerCover = Cover.rangeListener.bind(Cover);    
   
-
+  // Clearing the object from event listeners before restarting
   const removeAllListeners = () => {
     mark.removeEventListener('change', markListener);
     model.removeEventListener('change', modelListener);
@@ -972,7 +991,8 @@ document.addEventListener('DOMContentLoaded', () => {
     modelCar.removeEventListener('input', modelCarListenerCover);
     range.removeEventListener('input', rangeListenerCover);
   };
-
+  
+  // Adding events lister for elements (case)
   const addListenersCase = () => {
     mark.addEventListener('change', markListener);
     model.addEventListener('change', modelListener);
@@ -988,7 +1008,8 @@ document.addEventListener('DOMContentLoaded', () => {
     modelCar.addEventListener('input', modelCarListener);
     range.addEventListener('input', rangeListener);
   };
-
+  
+  // Adding events lister for elements (cover)
   const addListenersCover = () => {
     mark.addEventListener('change', markListenerCover);
     model.addEventListener('change', modelListenerCover);
@@ -1005,6 +1026,7 @@ document.addEventListener('DOMContentLoaded', () => {
     range.addEventListener('input', rangeListenerCover);
   };
 
+  // Smooth scrolling and modal activation
   const fixDiasabled = () => {
     document.querySelector('#product').scrollIntoView({
       behavior: 'smooth',
@@ -1016,18 +1038,21 @@ document.addEventListener('DOMContentLoaded', () => {
     countChangeButtons--;
   };
 
+  // Calling the start method for case object 
   const caseStart = () => {
     buttonCase.classList.remove('active-button');
     addListenersCase();
     Case.start();
   };
 
+  // Calling the start method for cover object
   const coverStart = () => {
     buttonCase.classList.add('active-button');
     addListenersCover();
     Cover.start();
   };
 
+  // Exposes the order amount in accordance with the selected product
   const defaultSum = () => {
     // productRadio.forEach((elem) => {
     //   if(elem.checked) {
@@ -1044,18 +1069,31 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   defaultSum();
 
-  // const sumResult = () => {
-  //   defaultSum();
-  //     let crossSaleArray = document.getElementsByName("cross_sale")[0].value.split(";");
-  //     if (crossSaleArray[0] !== '') {
-  //       crossSaleArray.forEach(element => {
-  //         sum += Number(element.match(/\d+/)[0]);
-  //       }); 
-  //     } else defaultSum();
+  // Recalculates the amount in accordance with the selected additional items
+  /*const sumResult = () => {
+    defaultSum();
+      let crossSaleArray = document.getElementsByName("cross_sale")[0].value.split(";");
+      if (crossSaleArray[0] !== '') {
+        crossSaleArray.forEach(element => {
+          sum += Number(element.match(/\d+/)[0]);
+        }); 
+      } else defaultSum();
 
-  //     document.getElementById("cost").innerHTML = "<p>ИТОГО: <strong>" + sum + "₽</strong></p>";
-  // };
+      document.getElementById("cost").innerHTML = "<p>ИТОГО: <strong>" + sum + "₽</strong></p>";
+  };
 
+  setTimeout(() => {
+    defaultSum();
+    //document.getElementById("cost").innerHTML = "<p>ИТОГО: <strong>" + sum + "₽</strong></p>";
+
+    window.addEventListener("load", function () {
+      let crossSaleBlock = document.getElementsByClassName("t-img-select__container")[0];
+      crossSaleBlock.addEventListener("click", sumResult);
+    });
+  }, 600, true);
+  */
+
+  // Mode change
   const changeButtons = () => {
     buttonCase.addEventListener('click', () => { 
       removeAllListeners();
@@ -1073,6 +1111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   changeButtons();
 
+  // Product change 
   const changeRadio = () => {
     productRadio.forEach(elem => {
       elem.addEventListener('click', () => {
@@ -1120,16 +1159,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   changeRadio();
 
-  // setTimeout(() => {
-  //   defaultSum();
-  //   //document.getElementById("cost").innerHTML = "<p>ИТОГО: <strong>" + sum + "₽</strong></p>";
-
-  //   window.addEventListener("load", function () {
-  //     let crossSaleBlock = document.getElementsByClassName("t-img-select__container")[0];
-  //     crossSaleBlock.addEventListener("click", sumResult);
-  //   });
-  // }, 600, true);
-
+  // Search in the URL for a product tag
   const searchProduct = () => {
     let event = new Event('click');
     let num = Number(urlParam.get('utm_tovar'));
@@ -1139,6 +1169,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   searchProduct();
 
+  // Close modal
   modal.addEventListener('click', (event) => {
     let target = event.target;
     if(target.classList.contains('modal__close') ||
@@ -1148,6 +1179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, false);
 
+  // Close modal
   modal.addEventListener('touchend', () => {
     modal.style.display = 'none';
   }, false);

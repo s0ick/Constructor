@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   'use strict';
-  const mark = document.getElementById('mark'),
-    model = document.getElementById('model'),
-    link = document.getElementById('linkIn'),
-    check = document.getElementById('noSearch'),
-    urlParam = new URLSearchParams(window.location.search);
+  const danMark = document.getElementById('mark'),
+    danModel = document.getElementById('model'),
+    danLink = document.getElementById('linkIn'),
+    danCheck = document.getElementById('noSearch');
 
-  const optionsList = model.querySelectorAll('option');
+  const optionsList = danModel.querySelectorAll('option');
   let classOptions = [];
   optionsList.forEach((elem) => {
     classOptions.push(elem.value);
@@ -17,20 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
         params = window.location.search.replace( '?', '');
     if (noSearch) {
       params = params.length == 0 ? '' : `&${params}`;
-      link.href = `${baseURL}?noMyCar=true${params}`;
-    } else if (mark.value && model.value) {
+      danLink.href = `${baseURL}?noMyCar=true${params}`;
+    } else if (danMark.value && danModel.value) {
       params = params.length == 0 ? '' : `&${params}`;
-      let value = model.value.replace(`${mark.value}_`, '');
-      link.href = `${baseURL}?mark=${mark.value}&model=${value}${params}`;
+      let value = danModel.value.replace(`${danMark.value}_`, '');
+      danLink.href = `${baseURL}?mark=${danMark.value}&model=${value}${params}`;
     } else {
       params = params.length == 0 ? '' : `?${params}`;
-      link.href = `${params}`;
+      danLink.href = `${params}`;
     }
   };
   generateHref();
 
-  const getOptionForModel = () => {
-    model.innerHTML = ``;
+  const getOptionFordanModel = () => {
+    danModel.innerHTML = ``;
     const addOption = (val1, val2) => {
       const option = document.createElement('option');
       option.value = val1;
@@ -38,38 +37,38 @@ document.addEventListener('DOMContentLoaded', () => {
         val2 = val2.replace(/[_]+/, ' ');
       } while (val2.match(/_/));
       option.textContent = val2;
-      model.appendChild(option);
+      danModel.appendChild(option);
     };
     classOptions.forEach((elem) => {
-      if (elem.substring(0, mark.value.length) === mark.value) {
-        addOption(elem, elem.substring(mark.value.length + 1));
+      if (elem.substring(0, danMark.value.length) === danMark.value) {
+        addOption(elem, elem.substring(danMark.value.length + 1));
       }
     });
   };
 
-  const changeMark = () => {
-    mark.addEventListener('change', () => {
-      getOptionForModel();
+  const changedanMark = () => {
+    danMark.addEventListener('change', () => {
+      getOptionFordanModel();
       generateHref();
     });
-    model.addEventListener('change', () => {
+    danModel.addEventListener('change', () => {
       generateHref();
     });
-    mark.value = 'BMW';
+    danMark.value = 'BMW';
     let event = new Event('change');
-    mark.dispatchEvent(event);
+    danMark.dispatchEvent(event);
   };
-  changeMark();
+  changedanMark();
 
   const noSearchMyCar = () => {
-    check.addEventListener('change', () => {
-      if (check.checked) {
-        mark.disabled = true;
-        model.disabled = true;
-        generateHref(check.checked);
+    danCheck.addEventListener('change', () => {
+      if (danCheck.danChecked) {
+        danMark.disabled = true;
+        danModel.disabled = true;
+        generateHref(danCheck.danChecked);
       } else {
-        mark.disabled = false;
-        model.disabled = false;
+        danMark.disabled = false;
+        danModel.disabled = false;
         generateHref(null);
       }
     });
@@ -77,38 +76,43 @@ document.addEventListener('DOMContentLoaded', () => {
   noSearchMyCar();
 
   // Changing items when the label is gift
-  const searchGift = () => {
-    let product = document.getElementById('product'),
-        links = product.querySelectorAll('.product__card'),
-        images = product.querySelectorAll('.product__image'),
-        subtitle = product.querySelectorAll('.product__subtitle'),
-        price = product.querySelectorAll('.product__price'),
-        desc = product.querySelectorAll('.product__desc'),
-        parameters = window.location.search.replace('?', '');    
-    if(urlParam.get('utm_gift')) {
-      images[0].src = 'https://justbecome.pro/static/oqqo/img/4.png';
-      images[1].src = 'https://justbecome.pro/static/oqqo/img/2.png';
-      images[2].src = 'https://justbecome.pro/static/oqqo/img/5.png';
+  const searchGiftDan = () => {
+    let productDan = document.getElementById('productDan'),
+        danLinks = productDan.querySelectorAll('.productDan__card'),
+        imagesDan = productDan.querySelectorAll('.productDan__image'),
+        subtitleDan = productDan.querySelectorAll('.productDan__subtitle'),
+        priceDan = productDan.querySelectorAll('.productDan__price'),
+        descDan = productDan.querySelectorAll('.productDan__desc'),
+        urlParamDan = new URLSearchParams(window.location.search),
+        parametersDan = window.location.search.replace('?', '');    
+    if(urlParamDan.get('utm_gift')) {
+      imagesDan[0].src = 'https://justbecome.pro/static/oqqo/img/4.png';
+      imagesDan[1].src = 'https://justbecome.pro/static/oqqo/img/2.png';
+      imagesDan[2].src = 'https://justbecome.pro/static/oqqo/img/5.png';
 
-      subtitle[0].textContent = 'Подарочный чехол';
-      subtitle[1].textContent = 'Подарочная обложка';
-      subtitle[2].textContent = 'Подарочный комплект';
+      // -- Тут можно редактировать текст --
+      
+      subtitleDan[0].textContent = 'Подарочный чехол';
+      subtitleDan[1].textContent = 'Подарочная портмоне';
+      subtitleDan[2].textContent = 'Подарочный комплект';
 
-      desc[0].innerHTML = '• 3D Чехол<br>• Магнитный держатель<br>• Подарочная коробка';
-      desc[1].innerHTML = '• Обложка для автодокументов<br>• Подарочная коробка';
-      desc[2].innerHTML = '• 3D-Чехол<br>• Обложка для автодокументов<br>• Магнитный держатель<br>• Подарочная коробка';
+      descDan[0].innerHTML = '• 3D Чехол<br>• Магнитный держатель<br>• Подарочная коробка';
+      descDan[1].innerHTML = '• Портмоне для автодокументов<br>• Подарочная коробка';
+      descDan[2].innerHTML = '• 3D-Чехол<br>• Портмоне для автодокументов<br>• Магнитный держатель<br>• Подарочная коробка';
 
-      price[0].textContent = '4000 ₽';
-      price[1].textContent = '3500 ₽';
-      price[2].innerHTML = '7000 ₽ <span class="product__after">6000 ₽</span>';
+      priceDan[0].textContent = '4000 ₽';
+      priceDan[1].textContent = '3500 ₽';
+      priceDan[2].innerHTML = '7000 ₽ <span class="productDan__after">6000 ₽</span>';
+
+      // -----------------------------------
     } else {
       for(let i = 0; i < 3; i++) {
-        images[i].src = `https://justbecome.pro/static/oqqo/img/${i + 1}.png`;
+        imagesDan[i].src = `https://justbecome.pro/static/oqqo/img/${i + 1}.png`;
       }
     }
     for(let i = 0; i < 3; i++) {
-      links[i].href = 'https://oqqo-studio.ru/ctest' + `?utm_tovar=${i + 1}&` + parameters;
+      danLinks[i].href = 'https://oqqo-studio.ru/constructor' + `?utm_tovar=${i + 1}&` + parametersDan;
     }
   };
-  searchGift();
+  searchGiftDan();
 });

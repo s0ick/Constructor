@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fieldCoverTemplate = document.getElementsByName('obl_template'),
         fieldCoverPosition = document.getElementsByName('obl_position'),
         fieldCoverScale =  document.getElementsByName('obl_scale'),
-        productRadio = document.querySelectorAll('.product__radio'),
+        productRadio = document.querySelectorAll('.productDan__radio'),
         buttonCase = document.getElementById('button-case'),
 
         radioCase = document.getElementById('case'),
@@ -49,9 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         modal = document.getElementById('modal');
 
-  /* 
-    Functions related to the amount are unlocked in the production version
-  */
    
   let imgModel = document.createElement('img'),
       cloneImgModel = document.createElement('img'),
@@ -60,10 +57,35 @@ document.addEventListener('DOMContentLoaded', () => {
       count = 0, // Counter for mirror
       countStart = 0, // Counter for counting starts case
       countStartCover = 0, // Counter for counting starts cover
-      countChangeButtons = 0, // Counter for change mode 
+      countChangeButtons = 0, // Counter for change mode
+      countURLParams = 0,
+      temp = '', 
       settingsCase = {}, // For storing order data
       settingsCover = {}; // For storing order data
              
+
+  const inputValueInTovarField = (value) => {
+    if(urlParam.get('utm_gift')) fieldTovar[0].value = `${value}+коробка`;
+    else fieldTovar[0].value = value;
+  };
+  
+  // Exposes the order amount in accordance with the selected productDan
+  const defaultSum = () => {
+    productRadio.forEach((elem) => {
+      if(elem.checked) {
+        let div = $(elem).siblings('.productDan-block__text')[0], price;
+        if(elem.id === 'caseCover') {
+          price = div.querySelector('.productDan__after');
+        } else {
+          price = div.querySelector('.productDan__price');
+        }
+        sum = Number(price.textContent.replace('₽', ''));    
+      }
+    });
+    document.getElementById("cost").innerHTML = "<p>ИТОГО: <strong>" + sum + "₽</strong></p>";
+    const fieldPrice = document.getElementsByName('field_price');
+    fieldPrice[0].value = `${sum}₽`;
+  };
             
   class Constructor {
     constructor(mode = 'case') {
@@ -87,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.flipVertical();
 
       if(this.mode === 'case') {
-        image.classList.add('konstrukt__image');
+        image.classList.remove('konstrukt-cover__image');
       } else {
         image.classList.add('konstrukt-cover__image');
       }
@@ -95,7 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Return default values
     clearConstructor() {
-      range.value = 0;
+      // if(this.mode === 'case') {
+      //   range.value = 25;
+      // } else {
+      //   range.value = 0;
+      // }
+
+      // let event = new Event('input');
+      // range.dispatchEvent(event);
 
       if(imgModel.id === 'car') {
         image.removeChild(imgModel);
@@ -131,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       divColor.classList.add('display');
       colorCar.value = '';
       colorCar2.value = '';
-      modelCar.value = '';  
+      modelCar.value = '';
     }
 
     // Start/restart constructor
@@ -179,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Search URL parameters 
     searchParam() {
-      if(urlParam.get('mark') && urlParam.get('model')) {
+      if(urlParam.get('mark') && urlParam.get('model') && countURLParams === 0 ) {
         this.launcher(urlParam.get('mark'), urlParam.get('model'), !0);
         this.param = true;
       } else if (urlParam.get('noMyCar')) {
@@ -286,9 +315,19 @@ document.addEventListener('DOMContentLoaded', () => {
       imgModel.id = 'car';
       imgModel.classList.add('ui-widget-content');
       imgModel.classList.remove('flip');
-      range.value = 25;
-      imgModel.style.maxWidth = '125%';
-      imgModel.style.width = '125%';
+      if(this.mode === 'case') {
+        range.value = 25;
+        imgModel.style.maxWidth = '125%';
+        imgModel.style.width = '125%';
+      } else {
+        range.value = 0;
+        imgModel.style.maxWidth = '100%';
+        imgModel.style.width = '100%';
+      }
+      
+      let event = new Event('input');
+      range.dispatchEvent(event);
+      
       image.appendChild(imgModel);
 
       if(countStartCover > 0) {
@@ -300,6 +339,9 @@ document.addEventListener('DOMContentLoaded', () => {
           imgModel.classList.add('flip');
         }
       }
+
+      defaultSum();
+      inputValueInTovarField(temp);
 
       this.addDragNDrop();
       this.editingSize();
@@ -344,7 +386,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let arrayIndexes = [];
 
       slides.forEach(elem => arrayIndexes.push(elem.dataset.slickIndex));
-
       if(countStartCover > 2) {
         if(countStart >= 2 && this.mode === 'case') {
           select(settingsCase);
@@ -450,8 +491,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(this.NoMyCar) clickCheckNoMyCar();
         else {
           let event = new Event('input');
-          if(this.mode === 'cover' && countStartCover === 3) {
-            range.value = settingsCase.carWidth;
+           if(this.mode === 'cover' && countStartCover === 3) {
+            range.value = 0;
           } else if(this.mode === 'cover' && countStartCover === 2) {
             range.value = 0;
           } else if(this.mode === 'case') {
@@ -534,9 +575,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.body.clientWidth <= 567) result.style.height = '700px';
         let text = model.value.slice(mark.value.length + 1);
         if(this.mode === 'case') {
+          fieldMark[0].value = mark.value;
           fieldModel[0].value = text;
           settingsCase.model = text;
         } else {
+          fieldCoverMark[0].value = mark.value;
           fieldCoverModel[0].value = text;
           settingsCover.model = text;
         }
@@ -694,6 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         noSearch.checked = false;
       }
+
       $('input[id^=check]').each(function () {
         if (target !== this) {
           this.checked = false;
@@ -706,6 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let target = event.target;
       this.clearConstructor();
       countStart++;
+      
 
       let temp = settingsCase.mark,
           tempCover = settingsCover.mark;
@@ -719,7 +764,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       this.startSlider(target.value);
-      
       for (let i = 0; i < options.length; i++) {
         let markText = options[i].value.substring(0, mark.value.length); 
         if (markText === mark.value) {
@@ -735,9 +779,10 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if(countStartCover === 1) {
             this.launcher('', `${mark.value}_${settingsCase.model}`, false);
             countStartCover++; 
-          } else if(countStart === 1 && (urlParam.get('mark'))) { 
+          } else if(countURLParams === 0 && (urlParam.get('mark'))) { 
             this.launcher(urlParam.get('mark'), urlParam.get('model'), false);
             countStart--;
+            countURLParams++;
           } else if(countStart === 1) {
             this.launcher('', options[i].value, false);
             countStart--;
@@ -825,9 +870,9 @@ document.addEventListener('DOMContentLoaded', () => {
         settingsCover.carWidth = range.value;
       }
     }
-
     // -----------------------------------
-    // Hangs up the DragAndDrop event on the model's picture
+    
+    // Hangs up the DragAndDrop event on the model's picture 
     addDragNDrop() {
       const car = document.getElementById('car');
       draggie = new Draggabilly(car, { containment: 'body' });
@@ -836,7 +881,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return `Position: ${(x*0.0264).toFixed(2)}X ${((y - 258)*0.0264).toFixed(2)}Y (В см.)`;
       };
       
-
       if(this.mode === 'cover' && countStartCover === 3 && settingsCase.hasOwnProperty('positionX')) {
         fieldCoverPosition[0].value = getPosition(settingsCase.positionX, settingsCase.positionY);
         draggie.setPosition(settingsCase.positionX, settingsCase.positionY);
@@ -860,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const notify = (dragEvent, draggieInstance, event, pointer) => {
         let position = draggieInstance.position;
         let message = getPosition(position.x, position.y);
-        if(buttonCase.classList.contains('active-button')) {
+        if(!buttonCase.classList.contains('active-button')) {
           fieldPosition[0].value = message;
           settingsCase.positionX = position.x;
           settingsCase.positionY = position.y;
@@ -899,27 +943,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Changing items when the label is gift
   const searchGift = () => {
-    let product = document.getElementById('product'),
-        images = product.querySelectorAll('.product__image'),
-        subtitle = product.querySelectorAll('.product__subtitle'),
-        price = product.querySelectorAll('.product__price'),
-        desc = product.querySelectorAll('.product__desc');    
+    let productDan = document.getElementById('productDan'),
+        images = productDan.querySelectorAll('.productDan__image'),
+        subtitleDan = productDan.querySelectorAll('.productDan__subtitle'),
+        priceDan = productDan.querySelectorAll('.productDan__price'),
+        descDan = productDan.querySelectorAll('.productDan__desc');    
     if(urlParam.get('utm_gift')) {
       images[0].src = 'https://justbecome.pro/static/oqqo/img/4.png';
       images[1].src = 'https://justbecome.pro/static/oqqo/img/2.png';
       images[2].src = 'https://justbecome.pro/static/oqqo/img/5.png';
 
-      subtitle[0].textContent = 'Подарочный чехол';
-      subtitle[1].textContent = 'Подарочная обложка';
-      subtitle[2].textContent = 'Подарочный комплект';
+      // -- Тут можно редактировать текст --
 
-      desc[0].innerHTML = '• 3D Чехол<br>• Магнитный держатель<br>• Подарочная коробка';
-      desc[1].innerHTML = '• Обложка для автодокументов<br>• Подарочная коробка';
-      desc[2].innerHTML = '• 3D-Чехол<br>• Обложка для автодокументов<br>• Магнитный держатель<br>• Подарочная коробка';
+      subtitleDan[0].textContent = 'Подарочный чехол';
+      subtitleDan[1].textContent = 'Подарочная обложка';
+      subtitleDan[2].textContent = 'Подарочный комплект';
 
-      price[0].textContent = '4000 ₽';
-      price[1].textContent = '3500 ₽';
-      price[2].innerHTML = '7000 ₽ <span class="product__after">6000 ₽</span>';
+      descDan[0].innerHTML = '• 3D Чехол<br>• Магнитный держатель<br>• Подарочная коробка';
+      descDan[1].innerHTML = '• Обложка для автодокументов<br>• Подарочная коробка';
+      descDan[2].innerHTML = '• 3D-Чехол<br>• Обложка для автодокументов<br>• Магнитный держатель<br>• Подарочная коробка';
+
+      priceDan[0].textContent = '4000 ₽';
+      priceDan[1].textContent = '3500 ₽';
+      priceDan[2].innerHTML = '7000 ₽ <span class="productDan__after">6000 ₽</span>';
+
+      // -----------------------------------
+
     } else {
       for(let i = 0; i < 3; i++) {
         images[i].src = `https://justbecome.pro/static/oqqo/img/${i + 1}.png`;
@@ -1027,8 +1076,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Smooth scrolling and modal activation
-  const fixDiasabled = () => {
-    document.querySelector('#product').scrollIntoView({
+  const fixDisabled = () => {
+    document.querySelector('#productDan').scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
@@ -1051,23 +1100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addListenersCover();
     Cover.start();
   };
-
-  // Exposes the order amount in accordance with the selected product
-  const defaultSum = () => {
-    // productRadio.forEach((elem) => {
-    //   if(elem.checked) {
-    //     let div = $(elem).siblings('.product-block__text')[0], price;
-    //     if(elem.id === 'caseCover') {
-    //       price = div.querySelector('.product__after');
-    //     } else {
-    //       price = div.querySelector('.product__price');
-    //     }
-    //     sum = Number(price.textContent.replace('₽', ''));    
-    //   }
-    // });
-    // document.getElementById("cost").innerHTML = "<p>ИТОГО: <strong>" + sum + "₽</strong></p>";
-  };
-  defaultSum();
 
   // Recalculates the amount in accordance with the selected additional items
   /*const sumResult = () => {
@@ -1099,36 +1131,32 @@ document.addEventListener('DOMContentLoaded', () => {
       removeAllListeners();
       if(countChangeButtons % 2 === 0) {
         if(radioCaseCover.checked || radioCase.checked) caseStart();
-        else fixDiasabled();
+        else fixDisabled();
       } else {
         if(radioCaseCover.checked || radioCover.checked) coverStart();
-        else fixDiasabled();
+        else fixDisabled();
       }
       countChangeButtons++;
       //sumResult();
-      defaultSum();
+      //defaultSum();
     }, false);
   };
   changeButtons();
 
-  // Product change 
+  
+  // productDan change 
   const changeRadio = () => {
     productRadio.forEach(elem => {
       elem.addEventListener('click', () => {
         productRadio.forEach(radio => radio.checked = false);
         elem.checked = true;
-        
-
-        const inputValueInTovarField = (value) => {
-          if(urlParam.get('utm_gift')) fieldTovar[0].value = `${value}+коробка`;
-          else fieldTovar[0].value = value;
-        };
-
         let click = new Event('click');
 
         switch(elem.id) {
           case 'case':
-            inputValueInTovarField('чехол');
+            temp = 'чехол';
+            inputValueInTovarField(temp);
+            defaultSum();
             buttonCase.classList.remove('active-button');
             countChangeButtons = 0;
             buttonCase.dispatchEvent(click);
@@ -1137,7 +1165,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             break;
           case 'cover':
-            inputValueInTovarField('обложка');
+            temp = 'обложка';
+            inputValueInTovarField(temp);
+            defaultSum();
             buttonCase.classList.remove('active-button');
             countChangeButtons = 1;
             buttonCase.dispatchEvent(click);
@@ -1146,26 +1176,28 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             break;
           case 'caseCover': 
-            inputValueInTovarField('чехол+обложка');
+            temp = 'чехол+обложка';
+            inputValueInTovarField(temp);
+            defaultSum();
             buttonCase.classList.add('active-button');
             buttonCase.dispatchEvent(click); 
             break;
           default: break;
         }
-        //sumResult();
-        defaultSum();
       }, false);
     });
   };
   changeRadio();
 
-  // Search in the URL for a product tag
+  // Search in the URL for a productDan tag
   const searchProduct = () => {
-    let event = new Event('click');
+    let eventClick = new Event('click');
     let num = Number(urlParam.get('utm_tovar'));
     if(typeof num === 'number' && num !== 0) {
-      productRadio[num - 1].dispatchEvent(event);
-    } else productRadio[0].dispatchEvent(event);
+      productRadio[num - 1].dispatchEvent(eventClick);
+    } else {
+      productRadio[0].dispatchEvent(eventClick);
+    }
   };
   searchProduct();
 
